@@ -1,23 +1,21 @@
 clc; clear all; close all;
 oldpath = path;
-path(oldpath,'C:\Users\Edu\Documents\MATLAB\images');
+path(oldpath,'C:\Users\Edu\Documents\MATLAB\images\dolar');
 x = uint8(imread('dolar.jpg'));
-x1 = x(:,:,1);
-[l,h] = size(x1);
+
+[l,h,p] = size(x);
+x1 = uint8(ones(l,h,p));
 for d1 = 1:l
     for d2 = 1:h
-        if(x1(d1,d2)>128)
-            x1(d1,d2) = 255;
-        else
-            x1(d1,d2) = 0;
+        for d3 = 1:p
+            if(x(d1,d2,d3)>128)
+                x1(d1,d2,d3) = 255;
+            else
+                x1(d1,d2,d3) = 0;
+            end
         end
     end
 end
-%x2 = x(:,:,2);
-%x3 = x(:,:,3);
-%subplot(1,3,1);
-imshow(x1); title('Camada 1');
-%subplot(1,3,2);
-%imshow(x2); title('Camada 2');
-%subplot(1,3,3);
-%imshow(x3); title('Camada 3');
+figure();
+subplot(1,2,1); imshow(x); title('Original');
+subplot(1,2,2); imshow(x1); title('Binarizado');
